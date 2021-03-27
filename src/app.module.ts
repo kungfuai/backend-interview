@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
-import { ExampleModule } from './example_module/example.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { TasksModule } from './tasks/tasks.module';
+//import * as ormconfig from '../ormconfig';
 
 @Module({
-  imports: [ExampleModule, TasksModule],
+  imports: [TasksModule, TypeOrmModule.forRoot()],
 })
 export class AppModule {}
