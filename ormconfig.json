@@ -5,7 +5,7 @@
   "username": "postgres",
   "password": "password",
   "database": "to_do",
-  "entities": [ "src/**/*.entity{.ts,.js}"],
+  "entities": [ "src/entity/*.entity{.ts,.js}"],
   "synchronize": false,
   "migrationsRun": false,
   "logging": true,
