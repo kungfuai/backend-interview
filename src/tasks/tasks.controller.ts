@@ -3,11 +3,13 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
+  HttpStatus,
   Param,
   Patch,
   Post,
 } from '@nestjs/common';
-import { CreateTaskDTO, TaskDTO } from 'src/dto/task.dto';
+import { CreateTaskDTO, TaskDTO, UpdateTaskDTO } from 'src/dto/task.dto';
 import { TasksService } from './tasks.service';
 
 @Controller('tasks')
@@ -36,12 +38,18 @@ export class TasksController {
   }
 
   @Patch(':id')
-  public update() {
-    return 'update task';
+  public async update(
+    @Param('id') id: number,
+    @Body() updteTaskRequest: UpdateTaskDTO,
+  ) {
+    const response = await this.taskService.update(id, updteTaskRequest);
+
+    return response;
   }
 
   @Delete(':id')
-  public destroy() {
-    return 'remove a task';
+  @HttpCode(HttpStatus.NO_CONTENT)
+  public async destroy(@Param('id') id: number) {
+    await this.taskService.delete(id);
   }
 }

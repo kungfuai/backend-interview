@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateTaskDTO, TaskDTO } from 'src/dto/task.dto';
+import { CreateTaskDTO, TaskDTO, UpdateTaskDTO } from 'src/dto/task.dto';
 import { Task, TaskStatus } from 'src/entity/task.entity';
 import { Repository } from 'typeorm';
 
@@ -36,6 +36,26 @@ export class TasksService {
     const taskDTO = this.entityToDTO(task);
 
     return taskDTO;
+  }
+
+  public async update(id: number, updteTaskRequest: UpdateTaskDTO) {
+    const task: Task = await this.show(id);
+
+    if (updteTaskRequest.title) task.title = updteTaskRequest.title;
+    if (updteTaskRequest.description)
+      task.description = updteTaskRequest.description;
+    if (updteTaskRequest.status) task.status = updteTaskRequest.status;
+
+    await this.taskRepository.save(task);
+    const taskDTO = this.entityToDTO(task);
+
+    return taskDTO;
+  }
+
+  public async delete(id: number) {
+    const task: Task = await this.show(id);
+
+    await this.taskRepository.remove(task);
   }
 
   private entityToDTO(task: Task): TaskDTO {
