@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Patch, Post } from '@nestjs/common';
-import { CreateTaskDTO } from 'src/dto/task.dto';
+import { CreateTaskDTO, TaskDTO } from 'src/dto/task.dto';
 import { TasksService } from './tasks.service';
 
 @Controller('tasks')
@@ -7,8 +7,9 @@ export class TasksController {
   constructor(private readonly taskService: TasksService) {}
 
   @Get()
-  public index() {
-    return 'List of all tasks';
+  public async index() {
+    const response = await this.taskService.index();
+    return response;
   }
 
   @Get(':id')
