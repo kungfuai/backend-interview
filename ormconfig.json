@@ -5,13 +5,22 @@
   "username": "postgres",
   "password": "password",
   "database": "to_do",
-  "entities": [ "src/entity/*.entity{.ts,.js}"],
   "synchronize": false,
-  "migrationsRun": false,
+  "migrationsRun": true,
   "logging": true,
   "logger": "file",
-  "migrations": ["src/migrations/**/*{.ts,.js}"],
+  "entities": [
+    "dist/entity/**/*.{ts,js}"
+  ],
+  "migrations": [
+    "dist/migration/**/*.{ts,js}"
+  ],
+  "subscribers": [
+    "dist/subscriber/**/*.{ts,js}"
+  ],
   "cli": {
-    "migrationsDir": "src/migrations"
-  }
+    "entitiesDir": "src/entity",
+    "migrationsDir": "src/migration",
+    "subscribersDir": "src/subscriber"
+ }
 }
