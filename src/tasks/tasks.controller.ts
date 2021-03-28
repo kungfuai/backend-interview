@@ -9,6 +9,7 @@ export class TasksController {
   @Get()
   public async index() {
     const response = await this.taskService.index();
+
     return response;
   }
 
@@ -20,6 +21,7 @@ export class TasksController {
   @Post()
   public async create(@Body() createTaskRequest: CreateTaskDTO) {
     const response = await this.taskService.create(createTaskRequest);
+
     return response;
   }
 

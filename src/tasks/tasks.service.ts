@@ -13,6 +13,7 @@ export class TasksService {
   public async index() {
     const tasks: Task[] = await this.taskRepository.find();
     const tasksDTO: TaskDTO[] = tasks.map(task => this.entityToDTO(task));
+
     return tasksDTO;
   }
   public async create(createTaskRequest: CreateTaskDTO) {
@@ -22,12 +23,7 @@ export class TasksService {
     task.status = TaskStatus.new;
 
     await this.taskRepository.save(task);
-
-    const taskDTO = new TaskDTO();
-    taskDTO.id = task.id;
-    taskDTO.title = task.title;
-    taskDTO.description = task.description;
-    taskDTO.status = task.status;
+    const taskDTO = this.entityToDTO(task);
 
     return taskDTO;
   }
